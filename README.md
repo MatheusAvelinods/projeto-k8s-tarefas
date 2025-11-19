@@ -19,7 +19,7 @@ A aplicação é composta por 3 serviços principais:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone <LINK_DO_SEU_REPOSITORIO_AQUI>
+    git clone https://github.com/MatheusAvelinods/projeto-k8s-tarefas
     cd projeto-kubernetes-final
     ```
 
