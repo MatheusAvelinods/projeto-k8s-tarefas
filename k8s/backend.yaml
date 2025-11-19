@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarefas-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarefas-backend
+  template:
+    metadata:
+      labels:
+        app: tarefas-backend
+    spec:
+      containers:
+      - name: backend
+        image: matheusavelino/tarefas-backend:v2
+        ports:
+        - containerPort: 3003
+        env:
+        - name: PORT
+          value: "3003"
+        
+        - name: MONGO_URI 
+          value: "mongodb://mongo-service:27017/tarefas"
+        - name: DB_HOST
+          value: "mongo-service"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tarefas-backend-service
+spec:
+  selector:
+    app: tarefas-backend
+  ports:
+  - protocol: TCP
+    port: 3003
+    targetPort: 3003
+  type: LoadBalancer

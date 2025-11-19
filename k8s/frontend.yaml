@@ -1,0 +1,36 @@
+# --- Definição do Deployment ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tarefas-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tarefas-frontend
+  template:
+    metadata:
+      labels:
+        app: tarefas-frontend
+    spec:
+      containers:
+      - name: frontend
+
+        image: matheusavelino/tarefas-frontend:v2.1
+        ports:
+        - containerPort: 80
+
+---
+# --- Definição do Service ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tarefas-frontend-service
+spec:
+  selector:
+    app: tarefas-frontend
+  ports:
+  - protocol: TCP
+    port: 80        # Porta externa (acessar no navegador)
+    targetPort: 80  # Porta do Nginx no container
+  type: LoadBalancer
